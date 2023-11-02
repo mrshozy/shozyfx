@@ -1,0 +1,8 @@
+/backend/target
+/backend/dist
+/backend/ReadMe.md
+/backend/.gitignore
+
+/frontend/node_modules
+.idea
+/frontend/.gitignore
