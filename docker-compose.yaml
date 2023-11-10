@@ -10,6 +10,6 @@ services:
       - "8080:8080"
     environment:
       SECRET_KEY: "1up87d^{m^qbjd<QC&.$t@h#8VM!>g!zs}f.?BD3?C7+tEa^sU"
-      FINANCIAL_DATA_URL: "mysql://root:Zano0919@102.37.157.214:3306/financialdata"
-      RETAIL_URL: "mysql://root:Zano0919@102.37.157.214:3306/retail"
+      FINANCIAL_DATA_URL: "mysql://root:Zano0919@10.0.0.4:3306/financialdata"
+      RETAIL_URL: "mysql://root:Zano0919@10.0.0.4:3306/retail"
       # Add other environment variables as needed
