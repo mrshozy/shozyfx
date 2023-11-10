@@ -4,7 +4,8 @@ import {Button} from "../../components/ui/button";
 import Icons from '../../components/Icons';
 import {Label} from "../../components/ui/label";
 import {Input} from "../../components/ui/input";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 interface LoginProps {
     // Define your prop types here
@@ -13,20 +14,24 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = () => {
     const [isSignupLoading, setIsSignupLoading] = React.useState<boolean>(false)
     const [isGoogleLoading, setIsGoogleLoading] = React.useState<boolean>(false)
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const {login} = useAuth()
+    const navigator = useNavigate()
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
         setIsSignupLoading(true)
-        setTimeout(() => {
-            setIsSignupLoading(false)
-        }, 1000)
+        login(email, password).then(resp => {
+            if (resp){
+                navigator("/")
+            }
+            setTimeout(() => {
+                setIsSignupLoading(false)
+            }, 1000)
+        })
     }
     return (
         <Layout title={"Login"}>
-
             <div className="container relative flex h-full flex-col items-center justify-center md:flex lg:max-w-none lg:grid-cols-2 lg:px-0">
                 <div className="lg:p-8 w-full flex flex-col justify-center items-center">
                     <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
@@ -69,7 +74,7 @@ const Login: React.FC<LoginProps> = () => {
                                             }}
                                         />
                                     </div>
-                                    <Button disabled={isSignupLoading || isGoogleLoading}>
+                                    <Button type={"submit"} disabled={isSignupLoading || isGoogleLoading}>
                                         {isSignupLoading && (
                                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                                         )}

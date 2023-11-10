@@ -5,7 +5,8 @@ import {Label} from "../../components/ui/label";
 import {Input} from "../../components/ui/input";
 import {Button} from "../../components/ui/button";
 import Icons from '../../components/Icons';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 interface SignupProps {
     // Define your prop types here
@@ -19,6 +20,8 @@ const Signup: React.FC<SignupProps> = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const navigator = useNavigate()
+    const  {register} = useAuth()
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
         if(confirmPassword !== password){
@@ -30,9 +33,14 @@ const Signup: React.FC<SignupProps> = () => {
             return;
         }
         setIsSignupLoading(true)
-        setTimeout(() => {
+        register(name, surname, email, password).then(condition => {
             setIsSignupLoading(false)
-        }, 1500)
+            if (condition){
+                setTimeout(() => {
+                    navigator("/auth/login")
+                }, 500)
+            }
+        })
     }
     return (
         <Layout title={"Login"}>

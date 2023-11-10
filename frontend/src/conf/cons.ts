@@ -5,10 +5,10 @@ export const AppName = "ShozyFx"
 
 export const NavFeatures: { title: string; href: string; description: string }[] = [
     {
-        title: "Alert Dialog",
-        href: "/docs/primitives/alert-dialog",
+        title: "Dashboard",
+        href: "/dashboard",
         description:
-            "A modal dialog that interrupts the user with important content and expects a response.",
+            "A dashboard view that show that has tool to assist you on your trade.",
     },
     {
         title: "Hover Card",

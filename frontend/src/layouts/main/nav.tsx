@@ -15,11 +15,11 @@ const Nav: React.FC<NavProps> = () => {
         <nav className='sticky h-16 inset-x-0 top-0 z-30 w-full border-b border-gray-200 dark:border-gray-700 backdrop-blur-lg transition-all'>
             <MaxWidthPageWrapper>
                 <div className='flex h-16 items-center justify-between border-b border-zinc-200 dark:border-gray-700 '>
-                    <div className={"flex flex-row space-x-1.5 items-center justify-center"}>
+                    <div className={"flex-row space-x-1.5 items-center justify-center flex"}>
                         <Icons.stock className={"w-8 h-8"} />
                         <Link
                             to='/'
-                            className='flex z-40 font-semibold'>
+                            className='z-40 font-semibold hidden lg:flex'>
                             <span>Shozy FX.</span>
                         </Link>
                         <NavMenu/>

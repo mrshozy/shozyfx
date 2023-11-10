@@ -1,0 +1,19 @@
+### Send POST request with json body
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Zamokuhle",
+  "surname": "Shozi",
+  "email": "shozyzamo@gmail.com",
+  "password": "Zamokuhle0319"
+}
+
+### Send POST request with json body
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "shozyzamo@gmail.com",
+  "password": "Zamokuhle0319"
+}
