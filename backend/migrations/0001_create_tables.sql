@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS user_profiles
 
 CREATE TABLE IF NOT EXISTS password_reset_requests
 (
-    reset_token     VARCHAR(255) PRIMARY KEY,
     user_id         CHAR(36) NOT NULL,
     request_time    DATETIME,
     expiration_time DATETIME,

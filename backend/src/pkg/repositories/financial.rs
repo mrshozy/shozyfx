@@ -40,7 +40,6 @@ impl Financial{
     pub async fn get_all_currency_pair_data(&self) -> Result<Vec<CurrencyPair>, sqlx::error::Error> {
         let midnight = Local::now().date_naive().and_hms_nano_opt(0, 0, 0, 0).unwrap().timestamp() - 7200;
         // let data = sqlx::query_as::<_, CurrencyPair>("SELECT * FROM currency_pair ORDER BY timestamp DESC LIMIT 576")
-        info!("{}", midnight);
         let data = sqlx::query_as::<_, CurrencyPair>("SELECT * FROM currency_pair where timestamp >= ? ORDER BY timestamp DESC")
             .bind(midnight)
             .fetch_all(&self.sqlx)

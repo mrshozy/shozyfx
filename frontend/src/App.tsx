@@ -1,20 +1,11 @@
-import "./app.css"
-import {RouterProvider} from "react-router-dom";
-import routes from "./routes";
-import {ThemeProvider} from "./providers/Theme";
-import {AuthProvider} from "./providers/Auth";
-import {Toaster} from "./components/ui/toaster";
-import {Settings} from "./providers/Settings";
+import './App.css';
+import Router from './routes';
+import { useScrollToTop } from './hooks/useScroll.ts';
+
 function App() {
+  useScrollToTop();
   return (
-      <ThemeProvider>
-          <Settings>
-              <Toaster />
-              <AuthProvider>
-                  <RouterProvider router={routes} />
-              </AuthProvider>
-          </Settings>
-      </ThemeProvider>
+    <Router  />
   );
 }
 

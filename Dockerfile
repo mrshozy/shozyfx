@@ -26,13 +26,17 @@ WORKDIR /app
 # Copy the compiled backend binary
 COPY --from=backend-builder /app/target/release/backend /app
 
-WORKDIR /dist
+WORKDIR /app/dist
 # Copy dist build
-COPY --from=frontend-builder /app/dist /dist
+COPY --from=frontend-builder /app/dist /app/dist
 
 WORKDIR /app/migrations
 # Copy dist build
 COPY --from=backend-builder /app/migrations /app/migrations
+
+WORKDIR /app/templates
+# Copy templates
+COPY --from=backend-builder /app/templates /app/templates
 
 # Expose the necessary port for the backend
 EXPOSE 8080

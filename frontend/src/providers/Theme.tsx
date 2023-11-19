@@ -1,5 +1,5 @@
 import React, {createContext, useEffect} from "react"
-import useStorage from "../hooks/useStorage";
+import useLocalStorage from "../hooks/useLocalStorage.ts";
 
 type Theme = "dark" | "light" | "system"
 
@@ -9,26 +9,24 @@ type ThemeProviderProps = {
     storageKey?: string
 }
 
-type ThemeProviderState = {
+interface ThemeContextProps {
     theme: Theme
     setTheme: (theme: Theme) => void
 }
 
-const initialState: ThemeProviderState = {
-    theme: "system",
-    setTheme: () => null,
-}
+const ThemeProviderContext = createContext<ThemeContextProps | undefined>(undefined)
 
-export const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
-
-export function ThemeProvider({children, defaultTheme = "dark", storageKey = "theme", ...props}: ThemeProviderProps) {
-    const [theme, setTheme] = useStorage(storageKey, defaultTheme)
-
+function ThemeProvider({children, defaultTheme = "light", storageKey = "vite-ui-theme", ...props}: ThemeProviderProps) {
+    const [theme, setTheme] = useLocalStorage(storageKey, defaultTheme)
     useEffect(() => {
         const root = window.document.documentElement
         root.classList.remove("light", "dark")
         if (theme === "system") {
-            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+                .matches
+                ? "dark"
+                : "light"
+
             root.classList.add(systemTheme)
             return
         }
@@ -36,9 +34,16 @@ export function ThemeProvider({children, defaultTheme = "dark", storageKey = "th
     }, [theme])
 
     return (
-        <ThemeProviderContext.Provider {...props} value={{theme,
-                setTheme: (theme: Theme) => setTheme(theme)}}>
+        <ThemeProviderContext.Provider {...props} value={{
+            theme,
+            setTheme: (theme: Theme) => {
+                localStorage.setItem(storageKey, theme)
+                setTheme(theme)
+            }
+        }}>
             {children}
         </ThemeProviderContext.Provider>
     )
 }
+
+export {ThemeProviderContext, ThemeProvider}

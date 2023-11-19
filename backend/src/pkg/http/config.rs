@@ -47,9 +47,9 @@ impl Config {
                 .wrap(cors)
                 .configure(|config| { this.init(config); }
                 )
-                .service(spa().index_file("/dist/index.html")
+                .service(spa().index_file("./dist/index.html")
                         .static_resources_mount("/")
-                        .static_resources_location("/dist")
+                        .static_resources_location("./dist")
                         .finish())
         };
         HttpServer::new(app)

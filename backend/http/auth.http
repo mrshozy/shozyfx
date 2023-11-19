@@ -17,3 +17,12 @@ Content-Type: application/json
   "email": "shozyzamo@gmail.com",
   "password": "Zamokuhle0319"
 }
+
+
+### Send POST request with json body
+POST http://localhost:8080/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "shozyzamo@gmail.com"
+}

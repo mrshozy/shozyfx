@@ -1,5 +1,6 @@
 /backend/target
 /backend/dist
+/backend/http
 /backend/ReadMe.md
 /backend/.gitignore
 

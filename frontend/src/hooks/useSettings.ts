@@ -1,10 +1,11 @@
-import {useContext} from "react";
-import {SettingsContext} from "../providers/Settings";
+import { useContext } from 'react';
+import { SettingsContext } from '../providers/Settings.tsx';
 
-const useSettings = () => {
-    const context = useContext(SettingsContext)
-    if (!context) throw Error("context is not defined")
-    return context
+function useSettings() {
+  const context = useContext(SettingsContext)
+  if (context === undefined)
+    throw new Error("useTheme must be used within a ThemeProvider")
+  return context
 }
 
-export default  useSettings
+export default useSettings

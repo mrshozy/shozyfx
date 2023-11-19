@@ -2,6 +2,7 @@ use actix_web::web;
 use crate::pkg::handlers::analytics_handler::set_analytics_config;
 use crate::pkg::handlers::auth_handler::set_user_config;
 use crate::pkg::handlers::ping_handler::set_ping_config;
+use crate::pkg::handlers::signals_handler::set_signals_config;
 use crate::pkg::http::config::Config;
 use crate::pkg::models::state::State;
 
@@ -11,6 +12,7 @@ mod account_handler;
 mod charts_handler;
 mod ping_handler;
 mod analytics_handler;
+mod signals_handler;
 
 pub struct Handler;
 
@@ -22,6 +24,7 @@ impl Handler{
                 set_ping_config(c);
                 set_user_config(c);
                 set_analytics_config(c);
+                set_signals_config(c)
             }));
         });
     }

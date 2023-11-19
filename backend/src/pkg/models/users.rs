@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 use bcrypt::BcryptError;
-use uuid::Uuid;
-use chrono::{NaiveDateTime, Utc};
+use chrono::{Duration, Local, NaiveDateTime, Utc};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
+use uuid::Uuid;
 use crate::pkg::helper::hash::hash_password;
 use crate::pkg::repositories::retail::Retail;
 
@@ -28,6 +28,8 @@ pub struct UserLogin{
     pub password: String,
 }
 
+
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NewUser{
     pub name: String,
@@ -44,21 +46,20 @@ pub struct UserRole {
 
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 pub struct UserRoleMapping {
-    pub user_id: Uuid,
+    pub user_id: String,
     pub role_id: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 pub struct UserProfile {
-    pub user_id: Uuid,
+    pub user_id: String,
     pub profile_picture: Option<String>,
     pub address: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 pub struct PasswordResetRequest {
-    pub reset_token: String,
-    pub user_id: Uuid,
+    pub user_id: String,
     pub request_time: NaiveDateTime,
     pub expiration_time: NaiveDateTime,
 }
@@ -72,9 +73,22 @@ pub struct UserClaims{
     pub email: String,
     pub exp: NaiveDateTime,
 }
+
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UserResetPassword{
+    pub email: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UserNewPassword{
+    pub password: String,
+}
+
+
 impl User {
     pub fn new(new_user: NewUser) -> Result<Self, BcryptError> {
-        let now = Utc::now().naive_utc();
+        let now = Local::now().naive_local();
         let password = hash_password(new_user.password.as_str())?;
         let user = Self {
             id: Uuid::new_v4().to_string(),
@@ -101,6 +115,15 @@ impl User {
         let user_row = sqlx::query(&query).fetch_one(&(retail.sqlx)).await?;
         User::from_row(&user_row)
     }
+    pub async fn update_password(password:&str, id:&str, retail: &Retail) -> Result<bool, sqlx::Error>{
+        let password = hash_password(password).unwrap();
+        let query = format!("UPDATE users SET password = ? WHERE id = ?");
+        let query = sqlx::query(&query)
+            .bind(password)
+            .bind(id)
+            .execute(&(retail.sqlx)).await?;
+        Ok(query.rows_affected() != 0)
+    }
 }
 impl UserRole {
     pub fn new(role_name: String, description: Option<String>) -> Self {
@@ -113,13 +136,13 @@ impl UserRole {
 }
 
 impl UserRoleMapping {
-    pub fn new(user_id: Uuid, role_id: i32) -> Self {
+    pub fn new(user_id: String, role_id: i32) -> Self {
         UserRoleMapping { user_id, role_id }
     }
 }
 
 impl UserProfile {
-    pub fn new(user_id: Uuid, profile_picture: Option<String>, address: Option<String>) -> Self {
+    pub fn new(user_id: String, profile_picture: Option<String>, address: Option<String>) -> Self {
         UserProfile {
             user_id,
             profile_picture,
@@ -129,10 +152,10 @@ impl UserProfile {
 }
 
 impl PasswordResetRequest {
-    pub fn new(reset_token: String, user_id: Uuid, expiration_time: NaiveDateTime) -> Self {
-        let now = Utc::now().naive_utc();
+    pub fn new(user_id: String) -> Self {
+        let now = Local::now().naive_local();
+        let expiration_time = now + Duration::hours(1);
         PasswordResetRequest {
-            reset_token,
             user_id,
             expiration_time,
             request_time: now,
@@ -155,7 +178,7 @@ impl NewUser{
         if !self.password_strength() {
             errors.insert(
                 "password".to_string(),
-                "Password is weak, must contain at least one uppercase, three lowercase, and 2 digits with length of 8.".to_string(),
+                "Password is weak, must contain at least one uppercase, lowercase and digit with length of 8.".to_string(),
             );
         }
         if self.password.chars().any(|c|  c.is_ascii_punctuation()){
@@ -194,7 +217,14 @@ impl NewUser{
                 _ => {}
             }
         }
-        upper >= 1 && lower >= 4 && digit > 2 && self.password.len() >= 8
+        upper >= 1 && lower >= 1 && digit > 1 && self.password.len() >= 8
+    }
+}
+
+impl UserResetPassword{
+   pub fn is_valid_email(&self) -> bool{
+       let re = Regex::new(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").unwrap();
+       re.is_match(self.email.as_str())
     }
 }
 
@@ -209,5 +239,13 @@ impl UserLogin{
     }
     fn is_password_valid(&self) -> bool{
         !self.password.chars().any(|c|  c.is_ascii_punctuation())
+    }
+}
+impl UserNewPassword{
+    pub fn is_password_valid(&self) -> bool{
+        !self.password.chars().any(|c|  c.is_ascii_punctuation()) && self.password.len() >= 8
+    }
+    pub fn get_error_message(&self) ->String{
+        "Password is weak, must contain at least one uppercase, lowercase and digit with length of 8.".into()
     }
 }
