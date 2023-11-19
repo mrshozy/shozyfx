@@ -133,7 +133,7 @@ const Charts: React.FC<ChartsProps> = () => {
                     <Card className={'w-full md:h-full h-[75vw] flex flex-col justify-between'}>
                         <CardHeader>
                             {
-                                (!error && selectedData && analyze && strength) && (
+                                (!error && selectedData) && (
                                     <>
                                         <CardTitle className={'md:text-2xl text-xl'}>{`${selected} `}Strength
                                             Index</CardTitle>
