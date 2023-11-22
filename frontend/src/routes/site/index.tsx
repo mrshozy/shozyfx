@@ -10,7 +10,7 @@ interface HomeProps {}
 const Home: React.FC<HomeProps> = () => {
   const {authenticated} = useAuth();
   return (
-    <Layout className={'flex flex-col items-center space-y-10 sm:pt-3 md:pt-6 lg:pt-10'}>
+    <Layout showNavBar className={'flex flex-col items-center space-y-10 sm:pt-3 md:pt-6 lg:pt-10'}>
       <div
         className='mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-black px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50'>
         <Typography className='text-sm font-semibold text-center'>

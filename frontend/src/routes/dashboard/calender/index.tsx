@@ -160,7 +160,7 @@ export default function Calender() {
         toolbar={
           {
             search: 'event',
-            filters: ['impact', 'currency', 'time'],
+            filters: ['impact', 'currency'],
             tableViewOptions: true,
           }
         }

@@ -20,9 +20,11 @@ impl Financial{
             }
         )
     }
-    pub async fn get_currency_pair_data(&self, pair: &str) -> Result<Vec<CurrencyPair>, sqlx::error::Error> {
-        let data = sqlx::query_as::<_, CurrencyPair>("SELECT * FROM currency_pair WHERE pair = ? ORDER BY timestamp DESC LIMIT 24")
+    pub async fn get_currency_pair_data(&self, pair: &str, timestamp: i64) -> Result<Vec<CurrencyPair>, sqlx::error::Error> {
+        let start = NaiveDateTime::from_timestamp_opt(timestamp, 0).unwrap().date().and_hms_opt(0,0,0).unwrap().timestamp()-7200;
+        let data = sqlx::query_as::<_, CurrencyPair>("SELECT * FROM currency_pair WHERE pair = ? and timestamp >= ? ORDER BY timestamp ASC LIMIT 24")
             .bind(pair)
+            .bind(start)
             .fetch_all(&self.sqlx)
             .await?;
         Ok(data)

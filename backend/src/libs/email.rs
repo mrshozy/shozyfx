@@ -9,9 +9,7 @@ const EMAIL_SENDER_NAME: &str = "makart.ciphershift@gmail.com";
 const EMAIL_PASSWORD: &str = "ziusujjghljmhitj";
 
 #[derive(Clone)]
-pub struct EmailSender {
-    smtp: SmtpTransport,
-}
+pub struct EmailSender(SmtpTransport);
 
 pub enum TEMPLATE {
     PasswordReset(String, String)
@@ -24,7 +22,7 @@ impl EmailSender {
             EMAIL_PASSWORD.to_owned(),
         );
         let smtp = SmtpTransport::relay("smtp.gmail.com")?.credentials(creds).build();
-        Ok(Self { smtp })
+        Ok(Self(smtp))
     }
     pub fn send(&self, to: &str, template: TEMPLATE) -> Result<(), Box<dyn std::error::Error>> {
         let (subject, content) = match template {
@@ -53,7 +51,7 @@ impl EmailSender {
             .header(ContentType::TEXT_HTML)
             .body(content)
             .unwrap();
-        self.smtp.send(&email)?;
+        self.0.send(&email)?;
         Ok(())
     }
 }

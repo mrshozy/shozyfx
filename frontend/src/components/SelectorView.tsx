@@ -16,24 +16,30 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Separator } from './ui/separator';
 
-interface SelectorViewProps {
-  className?: string,
-  constant: string[]
-  title?: string
-  selected?: string
-  onChange: (data: string | undefined) => void
+interface SelectorViewProps<T> {
+  className?: string;
+  title?: string;
+  selected?: { value: T, label: string };
+  onChange: (data: { value: T, label: string } | undefined) => void;
   options: {
-    label: string
-    value: string
-    icon?: React.ComponentType<{ className?: string }>
-  }[]
+    label: string;
+    value: T;
+    icon?: React.ComponentType<{ className?: string }>;
+  }[];
 }
 
-export function SelectorView({ title, options, constant, onChange, selected, className }: SelectorViewProps) {
+export function SelectorView<T>(
+  {
+    title, options, onChange, selected, className,
+  }: SelectorViewProps<T>) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className={cn('h-8 border-dashed', className)}>
+        <Button
+          variant='outline'
+          size='sm'
+          className={cn('h-8 border-dashed', className)}
+        >
           <PlusCircledIcon className='mr-2 h-4 w-4' />
           {title}
           {selected && (
@@ -43,21 +49,22 @@ export function SelectorView({ title, options, constant, onChange, selected, cla
                 variant='secondary'
                 className='rounded-sm px-1 font-normal lg:hidden'
               >
-                {selected}
+                {selected.label}
               </Badge>
               <div className='hidden space-x-1 lg:flex'>
-                {
-                  options.filter((option) => selected.toLowerCase().includes(option.value.toLowerCase()))
-                    .map((option) => (
-                      <Badge
-                        variant='secondary'
-                        key={option.value}
-                        className='rounded-sm px-1 font-normal'
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
-                }
+                {options
+                  .filter((option) =>
+                    selected.label.toLowerCase().includes(option.label.toLowerCase()),
+                  )
+                  .map((option) => (
+                    <Badge
+                      variant='secondary'
+                      key={option.label}
+                      className='rounded-sm px-1 font-normal'
+                    >
+                      {option.label}
+                    </Badge>
+                  ))}
               </div>
             </>
           )}
@@ -70,20 +77,22 @@ export function SelectorView({ title, options, constant, onChange, selected, cla
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
-                const isSelected = selected?.toLowerCase().includes(option.value.toLowerCase());
+                const isSelected = selected
+                  ? selected.label.toLowerCase().includes(option.label.toLowerCase())
+                  : false;
+
                 return (
                   <CommandItem
-                    key={option.value}
+                    key={option.label}
                     onSelect={() => {
-                      async function filterData() {
-                        let s: string | undefined = undefined;
-                        if (!isSelected) {
-                          s = constant.find((p: string) => p.toLowerCase() == option.label.toLowerCase());
-                        }
-                        onChange(s);
+                      const selectedValue = options.find(
+                        (p) => p.label.toLowerCase() === option.label.toLowerCase(),
+                      );
+                      if (selectedValue) {
+                        onChange({ value: selectedValue.value, label: selectedValue.label });
+                      } else {
+                        onChange(undefined);
                       }
-
-                      filterData();
                     }}
                   >
                     <div
@@ -110,11 +119,7 @@ export function SelectorView({ title, options, constant, onChange, selected, cla
                 <CommandGroup>
                   <CommandItem
                     onSelect={() => {
-                      async function clear() {
-                        onChange(undefined);
-                      }
-
-                      clear();
+                      onChange(undefined);
                     }}
                     className='justify-center text-center'
                   >

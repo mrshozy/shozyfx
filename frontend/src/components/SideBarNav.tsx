@@ -26,7 +26,7 @@ const List = ({ title, children, onClick }: List) => {
           <Button
             key={title} onClick={() => onClick && onClick(href)}
             variant={path.endsWith(href) ? 'secondary' : 'ghost'}
-            className={`w-full h-12 justify-start ${path.endsWith(href) ? "" : "text-muted-foreground"}`}>
+            className={`w-full h-12 justify-start ${path.endsWith(href) ? "dark:text-primary" : "text-muted-foreground"}`}>
             {icon}
             {title}
           </Button>
@@ -35,7 +35,6 @@ const List = ({ title, children, onClick }: List) => {
     </div>
   );
 };
-
 interface SideBarContainerProps {
   navigations: List[];
 }

@@ -6,7 +6,6 @@ use encoding::{DecoderTrap, EncoderTrap, Encoding};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 
 
-
 #[derive(Clone)]
 pub struct Encryptor(pub String);
 

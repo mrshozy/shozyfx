@@ -8,6 +8,11 @@ export function getPreviousWorkDay(): Date {
   return previousWorkDay;
 }
 
+export function isWeekend(date: Date): boolean {
+  const dayOfWeek = date.getDay();
+  return dayOfWeek === 0 || dayOfWeek === 6;
+}
+
 export function getNextFriday(): Date {
   const today = new Date();
   const nextFriday = new Date(today);
@@ -40,18 +45,16 @@ export const dateFormatter = (date: number) => {
 };
 
 
-export const timestampToDate = (timestamp: number): string => {
+export const timestampToDate = (timestamp: number, hideTime?:boolean): string => {
   const date = new Date(timestamp * 1000); // Convert the timestamp to milliseconds
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
   const month = monthNames[date.getMonth()];
   const day = dayNames[date.getDay()];
   const dateNumber = date.getDate();
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
-
-  return `${month} ${day} ${dateNumber} ${hours}:${minutes}`;
+  return `${month} ${day} ${dateNumber} ${hideTime == undefined ? `${hours}:${minutes}`: ""}`;
 };
 
 export function getLastWeekdayBeforeWeekend():Date {

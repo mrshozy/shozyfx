@@ -20,10 +20,10 @@ export const NavFeatures: { title: string; href: string; description: string }[]
       "Access powerful tools and analytics to analyze market trends, identify potential trade opportunities, and make informed trading decisions.",
   },
   {
-    title: "Currency Converter",
+    title: "PIP Calculator",
     href: "/",
     description:
-      "Easily convert between different currencies with our user-friendly currency converter tool.",
+      "Easily calculate pips between different prices with our user-friendly pip calculator tool.",
   },
   {
     title: "Forex News Feed",

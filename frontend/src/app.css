@@ -1,152 +1,6 @@
-/*@tailwind base;*/
-
-/*@tailwind components;*/
-
-/*@tailwind utilities;*/
-
-/* */
-
-/*@layer base {*/
-
-/*  :root {*/
-
-/*    --background: 0 0% 100%;*/
-
-/*    --foreground: 224 71.4% 4.1%;*/
-
-/*    --card: 0 0% 100%;*/
-
-/*    --card-foreground: 224 71.4% 4.1%;*/
-
-/* */
-
-/*    --popover: 0 0% 100%;*/
-
-/*    --popover-foreground: 224 71.4% 4.1%;*/
-
-/* */
-
-/*    --primary: 220.9 39.3% 11%;*/
-
-/*    --primary-foreground: 210 20% 98%;*/
-
-/* */
-
-/*    --secondary: 220 14.3% 95.9%;*/
-
-/*    --secondary-foreground: 220.9 39.3% 11%;*/
-
-/* */
-
-/*    --muted: 220 14.3% 95.9%;*/
-
-/*    --muted-foreground: 220 8.9% 46.1%;*/
-
-/* */
-
-/*    --accent: 220 14.3% 95.9%;*/
-
-/*    --accent-foreground: 220.9 39.3% 11%;*/
-
-/* */
-
-/*    --destructive: 0 84.2% 60.2%;*/
-
-/*    --destructive-foreground: 210 20% 98%;*/
-
-/*    --border: 220 13% 91%;*/
-
-/*    --input: 220 13% 91%;*/
-
-/*    --ring: 224 71.4% 4.1%;*/
-
-/* */
-
-/*    --radius: 0.5rem;*/
-
-/*  }*/
-
-/* */
-
-/*  .dark {*/
-
-/*    --background: 224 71.4% 4.1%;*/
-
-/*    --foreground: 210 20% 98%;*/
-
-/* */
-
-/*    --card: 224 71.4% 4.1%;*/
-
-/*    --card-foreground: 210 20% 98%;*/
-
-/* */
-
-/*    --popover: 224 71.4% 4.1%;*/
-
-/*    --popover-foreground: 210 20% 98%;*/
-
-/* */
-
-/*    --primary: 210 20% 98%;*/
-
-/*    --primary-foreground: 220.9 39.3% 11%;*/
-
-/* */
-
-/*    --secondary: 215 27.9% 16.9%;*/
-
-/*    --secondary-foreground: 210 20% 98%;*/
-
-/* */
-
-/*    --muted: 215 27.9% 16.9%;*/
-
-/*    --muted-foreground: 217.9 10.6% 64.9%;*/
-
-/* */
-
-/*    --accent: 215 27.9% 16.9%;*/
-
-/*    --accent-foreground: 210 20% 98%;*/
-
-/* */
-
-/*    --destructive: 0 62.8% 30.6%;*/
-
-/*    --destructive-foreground: 210 20% 98%;*/
-
-/* */
-
-/*    --border: 215 27.9% 16.9%;*/
-
-/*    --input: 215 27.9% 16.9%;*/
-
-/*    --ring: 216 12.2% 83.9%;*/
-
-/*  }*/
-
-/*}*/
-
-/* */
-
-/*@layer base {*/
-
-/*  * {*/
-
-/*    @apply border-border;*/
-
-/*  }*/
-
-/*  body {*/
-
-/*    @apply bg-background text-foreground;*/
-
-/*  }*/
-
-/*}*/
-
-/*! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com*/
+/*
+! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
+*/
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -604,25 +458,25 @@ video {
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 98%;
-  --primary-foreground: 240 5.9% 10%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
+  --background: 20 14.3% 4.1%;
+  --foreground: 60 9.1% 97.8%;
+  --card: 20 14.3% 4.1%;
+  --card-foreground: 60 9.1% 97.8%;
+  --popover: 20 14.3% 4.1%;
+  --popover-foreground: 60 9.1% 97.8%;
+  --primary: 47.9 95.8% 53.1%;
+  --primary-foreground: 26 83.3% 14.1%;
+  --secondary: 12 6.5% 15.1%;
+  --secondary-foreground: 60 9.1% 97.8%;
+  --muted: 12 6.5% 15.1%;
+  --muted-foreground: 24 5.4% 63.9%;
+  --accent: 12 6.5% 15.1%;
+  --accent-foreground: 60 9.1% 97.8%;
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 4.9% 83.9%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --border: 12 6.5% 15.1%;
+  --input: 12 6.5% 15.1%;
+  --ring: 35.5 91.7% 32.9%;
 }
 
 * {
@@ -632,6 +486,8 @@ video {
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  letter-spacing: -0.025em;
 }
 
 *, ::before, ::after {
@@ -894,8 +750,8 @@ body {
   z-index: 1;
 }
 
-.m-2 {
-  margin: 0.5rem;
+.m-1 {
+  margin: 0.25rem;
 }
 
 .-mx-1 {
@@ -950,6 +806,10 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.mb-28 {
+  margin-bottom: 7rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -964,6 +824,10 @@ body {
 
 .ml-3 {
   margin-left: 0.75rem;
+}
+
+.ml-5 {
+  margin-left: 1.25rem;
 }
 
 .ml-6 {
@@ -998,16 +862,8 @@ body {
   margin-top: 2.5rem;
 }
 
-.mt-16 {
-  margin-top: 4rem;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
-}
-
-.mt-28 {
-  margin-top: 7rem;
 }
 
 .mt-3 {
@@ -1016,6 +872,10 @@ body {
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .mt-6 {
@@ -1031,6 +891,10 @@ body {
 
 .block {
   display: block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -2051,6 +1915,14 @@ body {
   font-weight: 600;
 }
 
+.font-thin {
+  font-weight: 100;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -2141,6 +2013,11 @@ body {
   color: hsl(var(--primary-foreground));
 }
 
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
 .text-red-700 {
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
@@ -2148,6 +2025,15 @@ body {
 
 .text-secondary-foreground {
   color: hsl(var(--secondary-foreground));
+}
+
+.text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
+.text-secondary {
+  color: hsl(var(--secondary));
 }
 
 .underline {
@@ -3036,6 +2922,10 @@ body {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
+:is(.dark .dark\:text-primary) {
+  color: hsl(var(--primary));
+}
+
 @media (min-width: 640px) {
   .sm\:bottom-0 {
     bottom: 0px;
@@ -3126,10 +3016,6 @@ body {
     position: absolute;
   }
 
-  .md\:mt-28 {
-    margin-top: 7rem;
-  }
-
   .md\:flex {
     display: flex;
   }
@@ -3180,6 +3066,14 @@ body {
 @media (min-width: 1024px) {
   .lg\:mt-0 {
     margin-top: 0px;
+  }
+
+  .lg\:mt-10 {
+    margin-top: 2.5rem;
+  }
+
+  .lg\:mt-16 {
+    margin-top: 4rem;
   }
 
   .lg\:flex {

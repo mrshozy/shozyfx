@@ -110,6 +110,7 @@ const navigation = [
 interface DashboardProps {
   children: React.ReactNode;
   className?: string;
+  showNavBar?: boolean
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ children, className }) => {

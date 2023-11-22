@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../../components/ui/form.tsx';
 import LoadingButton from '../../components/LoadingButton.tsx';
 import { Checkbox } from '../../components/ui/checkbox.tsx';
+import Layout from "../../layouts";
 
 
 const formSchema = z.object({
@@ -203,10 +204,10 @@ const Register: React.FC<RegisterProps> = () => {
     return <></>;
   }
   return (
-    <div className={'h-full w-full'}>
+    <Layout className={'h-full w-full'}>
       <div
-        className='container relative flex h-full  flex-col items-center mt-16  md:mt-28 justify-start md:flex lg:max-w-none lg:grid-cols-2 lg:px-0'>
-        <div className='lg:p-8 w-full flex flex-col justify-center items-center'>
+        className='container relative flex h-full mt-2 lg:mt-10 flex-col items-center  justify-start md:flex lg:max-w-none lg:grid-cols-2 lg:px-0'>
+        <div className='w-full flex flex-col justify-center items-center'>
           <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]'>
             <div className='flex flex-col space-y-2 text-center'>
               <h1 className='text-2xl font-semibold tracking-tight'>
@@ -275,7 +276,7 @@ const Register: React.FC<RegisterProps> = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
