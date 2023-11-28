@@ -8,7 +8,7 @@ interface DashboardLayoutProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({children}) => {
 
   return (
-    <Layout dashboard>
+    <Layout social={false}  dashboard>
       {children}
     </Layout>
   );

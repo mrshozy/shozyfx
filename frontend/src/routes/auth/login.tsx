@@ -116,9 +116,9 @@ const Login: React.FC<LoginProps> = () => {
         return <></>
     }
     return (
-        <Layout className={'h-full w-full'}>
+        <Layout social={false}  className={'grow'}>
             <div
-                className='container relative flex h-full flex-col items-center mt-5 lg:mt-16 justify-start md:flex lg:max-w-none lg:grid-cols-2 lg:px-0'>
+                className='container relative flex h-full flex-col items-center justify-start md:flex lg:max-w-none lg:grid-cols-2 lg:px-0'>
                 <div className='lg:p-8 w-full flex flex-col justify-center items-center'>
                     <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]'>
                         <div className='flex flex-col space-y-2 text-center'>

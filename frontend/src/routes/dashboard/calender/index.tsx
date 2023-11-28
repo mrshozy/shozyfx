@@ -156,6 +156,7 @@ export default function Calender() {
         columns={columns}
         data={data as typeof eventSchema._type []}
         paging={{ size: 7 }}
+        paging_size={7}
         selectable={false}
         toolbar={
           {

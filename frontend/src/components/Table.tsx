@@ -215,8 +215,8 @@ export function DataTableToolbar<T>({
             className='h-8 w-[150px] lg:w-[250px]'
           />
         }
-        {filters && filters(table, data)}
         {view}
+        {filters && filters(table, data)}
         {isFiltered && (
           <Button
             variant='ghost'
@@ -523,6 +523,7 @@ const Columns = <TData, >(data: DataTableColumnConfig<TData>[], actions: {
 };
 
 interface TableProps<TData> {
+  paging_size: number
   title?: string,
   paging?: {
     size: number
@@ -540,7 +541,7 @@ interface TableProps<TData> {
   rowActions: { action: React.ReactNode, onClick?: (row: Row<TData>) => void }[]
 }
 
-const Table = <TData, >({ columns, data, paging, toolbar, selectable, rowActions }: TableProps<TData>) => {
+const Table = <TData, >({ columns, data, paging, toolbar, selectable, rowActions, paging_size }: TableProps<TData>) => {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -550,7 +551,7 @@ const Table = <TData, >({ columns, data, paging, toolbar, selectable, rowActions
     columns: Columns(columns, rowActions, selectable),
     initialState: {
       pagination: {
-        pageSize: 7,
+        pageSize: paging_size,
       },
     },
     state: {
@@ -597,7 +598,10 @@ const Table = <TData, >({ columns, data, paging, toolbar, selectable, rowActions
                 />
               ))}
             </>
-          )} table={table} />
+          )}
+          table={table}
+          view={toolbar && toolbar.view && toolbar.view(table, data)}
+        />
       }
       <div className='rounded-md border overflow-auto max-h-[83%]'>
         <_Table className={`overflow-auto`}>

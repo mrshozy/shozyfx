@@ -11,34 +11,35 @@ interface LayoutProps {
   dashboard?: boolean;
   className?: string;
   showNavBar?: boolean
+  social: boolean
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, dashboard, className, showNavBar }) => {
+const Layout: React.FC<LayoutProps> = ({ children, dashboard, className, showNavBar, social }) => {
   const { device } = useSettings();
   const {authenticated, logout} = useAuth()
   if (device == 'mobile') {
     if (dashboard) {
       return (
-        <MobileDashboard className={className} showNavBar={showNavBar}>
+        <MobileDashboard social={social} className={className} showNavBar={showNavBar}>
           {children}
         </MobileDashboard>
       );
     }
     return (
-      <MobileSite className={className} showNavBar={showNavBar}>
+      <MobileSite social={social} className={className} showNavBar={showNavBar}>
         {children}
       </MobileSite>
     );
   }
   if (dashboard) {
     return (
-      <DesktopDashboard className={className} showNavBar={showNavBar}>
+      <DesktopDashboard social={social} className={className} showNavBar={showNavBar}>
         {children}
       </DesktopDashboard>
     );
   }
   return (
-    <DesktopSite className={className} logout={logout} authenticated={authenticated} showNavBar={showNavBar}>
+    <DesktopSite social={social} className={className} logout={logout} authenticated={authenticated} showNavBar={showNavBar}>
       {children}
     </DesktopSite>
   );

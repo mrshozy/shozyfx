@@ -110,7 +110,8 @@ const navigation = [
 interface DashboardProps {
   children: React.ReactNode;
   className?: string;
-  showNavBar?: boolean
+  showNavBar?: boolean;
+  social: boolean
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ children, className }) => {
@@ -129,10 +130,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ children, className }) => 
   }
   return (
     <div className={'h-screen w-screen flex flex-row fixed'}>
-      <SideBar className={'space-y-2 pt-2 flex flex-col justify-start items-start'}>
+      <SideBar className={'space-y-2 min-w-[320px] pt-2 flex flex-col justify-start items-start h-full'}>
         <Link href={"/"} className={"w-full p-4 flex flex-row justify-start items-center space-x-3"}>
           <Icons.logo className={"w-8 h-8"} />
-          <Typography variant={"h3"}>ShozyFx</Typography>
+          <Typography variant={"h3"}>Shozy Fx</Typography>
         </Link>
         <Card className='space-y-4 p-4 ml-3 w-[285px]'>
           <div className='flex w-full h-full'>
@@ -149,8 +150,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ children, className }) => 
           </div>
         </Card>
         <SideBarNav navigations={navigation} />
+        <Footer social={true} />
       </SideBar>
-      <Body className={'flex flex-row grow p-0'}>
+      <Body className={cn("mt-20", className)}>
         <div className={cn('grow h-full flex flex-col', className)}>
           <Nav scrollRef={node.current}>
             <NavigationMenu className={"space-x-3 ml-6"}>
@@ -190,10 +192,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ children, className }) => 
               </NavigationMenuItem>
             </NavigationMenu>
           </Nav>
-          <div ref={node} className={"flex grow pt-16 overflow-auto"}>
+          <div ref={node} className={"flex grow overflow-auto"}>
             {children}
           </div>
-          <Footer />
         </div>
       </Body>
     </div>

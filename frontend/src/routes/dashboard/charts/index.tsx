@@ -10,6 +10,7 @@ import { formattedHours, getPreviousWorkDay, timestampToDate } from '../../../li
 import { Button } from '../../../components/ui/button.tsx';
 import { History } from 'lucide-react';
 import { isWeekend } from 'date-fns/fp';
+import { makeTradeDecision, sortByAbsoluteAverage } from '../../../lib/signal.ts';
 
 export const LineCharts = lazy(() => import('../../../components/charts/LineChart.tsx'));
 
@@ -18,7 +19,11 @@ interface ChartsProps {
 }
 
 const Charts: React.FC<ChartsProps> = () => {
-  const [date, setDate] = useState<Date | undefined>(isWeekend(new Date()) ? getPreviousWorkDay() : new Date());
+  const [date, setDate] = useState<Date | undefined>(isWeekend(new Date()) ? getPreviousWorkDay() : () => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date;
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState<{ value: CURRENCY, label: string } | undefined>({
@@ -67,6 +72,7 @@ const Charts: React.FC<ChartsProps> = () => {
     }).then((resp) => {
         setData(resp?.data);
         setLoading(false);
+        console.log(sortByAbsoluteAverage(resp?.data))
       },
     ).catch(() => {
       setLoading(false);
@@ -94,28 +100,30 @@ const Charts: React.FC<ChartsProps> = () => {
     if (selectedData) {
       if (selectedData.length > 6 && stepBack + 6 <= selectedData.length) {
         const n = selectedData.length - stepBack;
-        const start = selectedData[n - 6];
-        const end = selectedData[n];
+        const start = selectedData[n - 7];
+        const end = selectedData[n - 1];
         return (start.average - end.average) / (start.time - end.time) * 60 * 60 * 5;
       } else {
         return 0;
       }
     }
+    return 0;
   }, [selectedData, stepBack]);
   const strength = useMemo(() => {
     if (selectedData) {
       if (selectedData.length > 6 && stepBack + 6 <= selectedData.length) {
         const n = selectedData.length - stepBack;
-        const start = selectedData[n - 6];
+        const start = selectedData[n - 7];
         const end = selectedData[n - 1];
         return (start.strength - end.strength) / (start.time - end.time) * 60 * 60 * 5;
       } else {
         return 0;
       }
     }
+    return 0;
   }, [selectedData, stepBack]);
   return (
-    <div className='h-full w-full flex-1 flex-col flex space-y-5 mt-4 lg:mt-0 p-5'>
+    <div className='h-full w-full flex-1 flex-col flex space-y-5 mt-4 lg:mt-0 px-5'>
       <div className='flex items-center justify-between space-y-1'>
         <div>
           <h2 className='md:text-2xl text-xl font-bold tracking-tight'>Charts</h2>
@@ -140,20 +148,23 @@ const Charts: React.FC<ChartsProps> = () => {
             }
           }}>
             <History className='m-1 h-4 w-4' />
-            {selectedData && formattedHours(selectedData[selectedData.length - stepBack]?.time)}
+            {selectedData && formattedHours(selectedData[selectedData.length - stepBack - 1]?.time)}
           </Button>
         </div>
         <div className={'grow w-full h-full'}>
           <Card className={'w-full md:h-full h-[75vw] flex flex-col justify-between'}>
             <CardHeader>
               {
-                (!error && selected && selectedData) && (
+                (!error && selected && selectedData && !loading) && (
                   <>
                     <CardTitle className={'md:text-2xl text-xl'}>{`${selected.label} `}Money
                       Flow Index</CardTitle>
                     <CardDescription className={'flex flex-row justify-start items-center'}>
                       Last 6 Average {analyze?.toFixed(4) + ' '} Last 6
                       Strength {strength?.toFixed(4) + ' '}
+                      {(strength * analyze).toFixed(4)}
+                      <br/>
+                       { selectedData  && JSON.stringify(makeTradeDecision(data, stepBack))}
                     </CardDescription>
                   </>
                 )

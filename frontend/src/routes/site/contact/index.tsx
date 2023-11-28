@@ -1,9 +1,7 @@
 import React from 'react';
 import Typography from '../../../components/Typography.tsx';
 import Layout from '../../../layouts';
-interface ContactsProps {
-  // Define your prop types here
-}
+interface ContactsProps {}
 
 const Contacts: React.FC<ContactsProps> = () => {
   return (

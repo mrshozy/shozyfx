@@ -161,9 +161,9 @@ const Reset: React.FC<ResetProps> = () => {
     }
     if (token) {
         return (
-            <Layout className={'h-full w-full flex justify-center flex-col items-center'}>
+            <Layout social={false}  className={'h-full w-full flex justify-center flex-col items-center'}>
                 <div
-                    className='container max-w-[400px] space-y-4 h-full flex-col items-center mt-4  lg:mt-16 justify-start '>
+                    className='container max-w-[400px] space-y-4 h-full flex-col items-center justify-start '>
                     <img width={80} className={'w-24 h-24'} src={'/password-reset.png'} alt={'lock'}/>
                     <Typography className={'text-center'} variant={'h2'}>Enter new password</Typography>
                     <Typography variant={'p'} muted className={'text-center'}>
@@ -181,9 +181,9 @@ const Reset: React.FC<ResetProps> = () => {
         );
     }
     return (
-        <Layout className={'h-full w-full flex justify-center flex-col items-center'}>
+        <Layout social={false}  className={'h-full w-full flex justify-center flex-col items-center'}>
             <div
-                className='container max-w-[400px]  space-y-4 flex h-full flex-col items-center mt-4 lg:mt-16 justify-start'>
+                className='container max-w-[400px]  space-y-4 flex h-full flex-col items-center justify-start'>
                 <img width={80} className={'w-24 h-24'} src={'/password-reset.png'} alt={'lock'}/>
                 <Typography variant={'h2'}>Forgot your password?</Typography>
                 <Typography variant={'p'} muted className={'text-center'}>

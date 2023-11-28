@@ -35,7 +35,7 @@ export const NavFeatures: { title: string; href: string; description: string }[]
     title: "Trading Signals",
     href: "/",
     description:
-      "Receive valuable trading signals and insights to enhance your trading strategy and improve your overall trading performance.",
+      "Receive valuable trading signal.ts and insights to enhance your trading strategy and improve your overall trading performance.",
   },
 ]
 

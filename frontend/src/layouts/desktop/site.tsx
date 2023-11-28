@@ -21,11 +21,12 @@ interface SiteProps {
     authenticated: boolean;
     logout: () => void;
     showNavBar?: boolean
+    social: boolean
 }
 
-export const Site: React.FC<SiteProps> = ({children, className, authenticated, logout, showNavBar}) => {
+export const Site: React.FC<SiteProps> = ({children, className, authenticated, logout, showNavBar, social}) => {
     return (
-        <div className={'h-screen w-screen flex flex-col space-y-20'}>
+        <div className={'h-screen w-screen flex flex-col items-start space-y-20 overflow-auto'}>
             <Nav scrollRef={null}>
                 <div className={'w-full h-full flex flex-row justify-start items-center px-10 space-x-3'}>
                     <Link href={"/"}> <Icons.logo className={'w-8 h-8'}/> </Link>
@@ -68,7 +69,7 @@ export const Site: React.FC<SiteProps> = ({children, className, authenticated, l
             <Body className={className}>
                 {children}
             </Body>
-            <Footer/>
+            <Footer social={social}/>
         </div>
     );
 };

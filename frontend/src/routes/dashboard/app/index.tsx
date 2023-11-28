@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import { PAIR, PairData, PAIRS } from '../../../@types/charts.ts';
 import { axiosInstance } from '../../../lib/utils.ts';
 import { toast } from '../../../components/ui/use-toast.ts';
@@ -7,16 +7,19 @@ import DatePicker from '../../../components/DatePicker.tsx';
 import Icons from '../../../components/Icons.tsx';
 import { formattedDate, getPreviousWorkDay, timestampToDate } from '../../../lib/date.ts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card.tsx';
-import AreaLineChart from '../../../components/charts/AreaLineChart.tsx';
 import { MoveDownRight, MoveUpRight } from 'lucide-react';
 import { isWeekend } from 'date-fns/fp';
 
-interface DashboardProps {
+export const AreaLineChart = lazy(() => import('../../../components/charts/AreaLineChart.tsx'));
 
-}
+interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = () => {
-  const [date, setDate] = useState<Date | undefined>(isWeekend(new Date()) ? getPreviousWorkDay() : new Date());
+  const [date, setDate] = useState<Date | undefined>(isWeekend(new Date()) ? getPreviousWorkDay() : () => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date;
+  });
   const pairs = useMemo(() => PAIRS, []);
   const [selected, setSelected] = useState<{ value: PAIR, label: string } | undefined>({
     value: PAIR.EURUSD,
@@ -91,13 +94,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     <CardTitle>
                       <span className={'md:text-2xl text-xl'}>{`${selected.label}`}</span>
                       {lastMove && (<>
-                                                <span className={'ml-2 font-medium text-lg text-card-foreground'}>
-                                                    {lastMove.price}
-                                                </span>
+                              <span className={'ml-2 font-medium text-lg text-card-foreground'}>
+                                  {lastMove.price}
+                              </span>
                         <span
                           className={`${lastMove.percentage >= 0 ? 'text-green-500' : 'text-red-500'} font-light text-sm ml-2`}>
-                                                    {`${lastMove.percentage >= 0 ? '+' : ''}`}{lastMove.percentage}%
-                                                </span>
+                            {`${lastMove.percentage >= 0 ? '+' : ''}`}{lastMove.percentage}%
+                        </span>
                         <span>{lastMove.percentage >= 0 ?
                           <MoveUpRight className={'w-3 h-3 inline'} /> :
                           <MoveDownRight className={'w-3 h-3 inline'} />
@@ -107,9 +110,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     <CardDescription className={'flex flex-row justify-start items-center'}>
                       {lastMove && (
                         <>
-                                                    <span className={'font-medium text-sm mr-2 '}>
-                                                        {timestampToDate(lastMove.time)}
-                                                    </span>
+                            <span className={'font-medium text-sm mr-2 '}>
+                                {timestampToDate(lastMove.time)}
+                            </span>
 
                         </>
                       )}

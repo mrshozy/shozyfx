@@ -179,7 +179,7 @@ const RegisterForm = ({ disable, setLoading }: { disable: boolean, setLoading: (
           </label>
         </div>
         <LoadingButton loading={isSubmitting} disabled={disable || isSubmitting} className={'w-full'} type='submit'>
-          Login
+          Sign Up
         </LoadingButton>
       </form>
     </Form>
@@ -204,9 +204,9 @@ const Register: React.FC<RegisterProps> = () => {
     return <></>;
   }
   return (
-    <Layout className={'h-full w-full'}>
+    <Layout social={false}  className={'h-full w-full'}>
       <div
-        className='container relative flex h-full mt-2 lg:mt-10 flex-col items-center  justify-start md:flex lg:max-w-none lg:grid-cols-2 lg:px-0'>
+        className='container relative flex h-full flex-col items-center  justify-start md:flex lg:max-w-none lg:grid-cols-2 lg:px-0'>
         <div className='w-full flex flex-col justify-center items-center'>
           <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]'>
             <div className='flex flex-col space-y-2 text-center'>

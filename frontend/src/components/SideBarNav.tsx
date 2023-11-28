@@ -21,7 +21,7 @@ const List = ({ title, children, onClick }: List) => {
       <Typography variant={"p"} className='mb-2 font-semibold tracking-tight text-muted-foreground'>
         {title}
       </Typography>
-      <div className='space-y-1'>
+      <div className='space-y-1 grow'>
         {children.map(({ title, href, icon }) => (
           <Button
             key={title} onClick={() => onClick && onClick(href)}
@@ -42,7 +42,7 @@ interface SideBarContainerProps {
 const SideBarNav: React.FC<SideBarContainerProps> = ({ navigations }) => {
   const { push } = useRouter();
   return (
-    <div className={'w-full flex flex-col'}>
+    <div className={'w-full flex flex-col grow'}>
       {navigations.map((n, i) => (
         <List onClick={(href) => push(href)} key={i} title={n.title} children={n.children} />
       ))}

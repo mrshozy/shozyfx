@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '../../components/Typography.tsx';
 import Link from '../../components/Link.tsx';
 import { ArrowLeft } from 'lucide-react';
+import Layout from '../../layouts';
 
 interface Page404Props {
   // Define your prop types here
@@ -10,7 +11,7 @@ interface Page404Props {
 const Page404: React.FC<Page404Props> = () => {
 
   return (
-    <div className={'h-screen w-screen flex flex-col justify-center items-center'}>
+    <Layout social={false}  className={'flex flex-col justify-center items-center'}>
       <div
         className='max-w-[400px] relative flex h-full flex-col items-center justify-center'>
         <Typography variant={'h1'} bold className={'text-center'}>Page Not Found!</Typography>
@@ -22,7 +23,7 @@ const Page404: React.FC<Page404Props> = () => {
           Return
         </Link>
       </div>
-    </div>
+    </Layout>
   );
 };
 

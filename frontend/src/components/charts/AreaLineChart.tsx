@@ -75,8 +75,8 @@ const AreaLineChart: React.FC<AreaLineChartProps> = ({ data }) => {
           bottom: 0,
         }}
       >
-        <XAxis dataKey='time' tickFormatter={dateFormatter} className={'text-sm'} />
-        <YAxis orientation='right' tickFormatter={(r) => r.toFixed(decimals)} className={'text-sm'} type='number'
+        <XAxis interval={0} dataKey='time' tickFormatter={dateFormatter} className={'text-sm font-thin'} />
+        <YAxis interval={0} orientation='right' tickFormatter={(r) => r.toFixed(decimals-1)} className={'text-sm font-thin'} type='number'
                domain={[...range]} />
         <Tooltip content={CustomToolTip} />
         <Area type='monotone' dataKey='price' stroke='#8884d8'
