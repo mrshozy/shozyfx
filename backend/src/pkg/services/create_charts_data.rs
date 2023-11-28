@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use log::info;
 use crate::pkg::models::charts::{AreaChart, LineChartStrength};
 use crate::pkg::models::currency::{Currency, CurrencyPair};
 

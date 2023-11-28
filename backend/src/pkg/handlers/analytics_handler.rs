@@ -1,5 +1,4 @@
 use actix_web::{get, web::ServiceConfig, HttpResponse, Responder, web};
-use chrono::{NaiveDate, NaiveDateTime, NaiveTime};
 use crate::pkg::helper::responder::Respond;
 use crate::pkg::models::charts::AreaChart;
 use crate::pkg::models::state::State;
@@ -8,7 +7,7 @@ use crate::pkg::services::create_charts_data::{collect_data, map_area_chart_data
 #[get("/analytics/charts/pairs/{pair}/{data}")]
 async fn charts_pair(data: web::Data<State>, params: web::Path<(String, i64)>) -> impl Responder {
     let financial = &data.repo.financial;
-    let (pair, date) = params.into_inner();;
+    let (pair, date) = params.into_inner();
     match financial.get_currency_pair_data(pair.as_str(), date).await {
         Ok(pairs) => {
             HttpResponse::Ok().json(Respond::<Vec<AreaChart>>::success(Some(map_area_chart_data(&pairs)), None))

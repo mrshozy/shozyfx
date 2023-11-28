@@ -6,6 +6,7 @@ use crate::pkg::models::users::{User, UserClaims};
 #[derive(Clone)]
 pub struct JWT(pub String);
 
+#[allow(dead_code)]
 impl JWT {
     pub fn generate_token(&self, user: &User) -> Result<String, Box<dyn std::error::Error>> {
         let token = encode(

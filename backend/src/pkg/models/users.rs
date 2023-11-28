@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use bcrypt::BcryptError;
-use chrono::{Duration, Local, NaiveDateTime, Utc};
+use chrono::{Duration, Local, NaiveDateTime};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
@@ -125,6 +125,9 @@ impl User {
         Ok(query.rows_affected() != 0)
     }
 }
+
+
+#[allow(dead_code)]
 impl UserRole {
     pub fn new(role_name: String, description: Option<String>) -> Self {
         UserRole {
@@ -135,12 +138,14 @@ impl UserRole {
     }
 }
 
+#[allow(dead_code)]
 impl UserRoleMapping {
     pub fn new(user_id: String, role_id: i32) -> Self {
         UserRoleMapping { user_id, role_id }
     }
 }
 
+#[allow(dead_code)]
 impl UserProfile {
     pub fn new(user_id: String, profile_picture: Option<String>, address: Option<String>) -> Self {
         UserProfile {
